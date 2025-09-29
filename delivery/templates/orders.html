@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Order Summary</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Dark gradient */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            color: #fff;
+        }
+        .order-box {
+            background: rgba(255, 255, 255, 0.08); /* Glassmorphism */
+            backdrop-filter: blur(14px);
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            max-width: 650px;
+            width: 100%;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        h1, h2 { 
+            margin-bottom: 10px; 
+            color: #f5f5f5;
+        }
+        .meta {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        ul { list-style-type: none; padding: 0; margin: 0; }
+        li {
+            display: flex;
+            align-items: center;
+            margin: 12px 0;
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        li img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+        .item-details { flex-grow: 1; color: #eaeaea; }
+        .item-details strong { color: #fff; }
+        .total { 
+            font-weight: bold; 
+            font-size: 1.3em; 
+            margin-top: 12px; 
+            color: #ffcc70;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(255,71,87,0.4);
+        }
+        a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(255,71,87,0.6);
+        }
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.95em;
+            color: #ccc;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-box">
+        <h1>Thank you for your order, {{ username }}! 🎉</h1>
+
+        <div class="meta">
+            <p><strong>Order ID:</strong> {{ order_id }}</p>
+            <p><strong>Order Time:</strong> {{ order_time }}</p>
+        </div>
+
+        <h2>Delivery Address</h2>
+        <p>{{ customer.address }}</p>
+
+        <h2>Order Details</h2>
+        {% if cart_items %}
+            <ul>
+                {% for item in cart_items %}
+                    <li>
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                        <div class="item-details">
+                            <strong>{{ item.name }}</strong><br>
+                            ₹{{ item.price }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="total">Total: ₹{{ total_price }}</p>
+
+            <a href="{% url 'customer_menu' cart_items.0.restaurant.id username %}">Back to Restaurant</a>
+        {% else %}
+            <p>No items in your order.</p>
+            <a href="/">Back to Home</a>
+        {% endif %}
+
+        <p class="footer-note">Your order will be delivered shortly 🚀<br>Thank you for choosing <strong>Uta Maccha</strong>!</p>
+    </div>
+</body>
+</html>

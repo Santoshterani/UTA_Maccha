@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Uta Maccha</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://source.unsplash.com/1600x900/?restaurant,food') no-repeat center center/cover;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .admin-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      text-align: center;
+    }
+
+    /* Logo + tagline */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .logo img {
+      width: 50px;
+      height: 50px;
+      margin-right: 12px;
+    }
+
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #ffb703;
+    }
+
+    h1 {
+      margin: 15px 0 30px;
+      font-size: 1.8rem;
+      color: #fb5607;
+    }
+
+    .admin-links {
+      display: grid;
+      gap: 15px;
+    }
+
+    .admin-links a {
+      display: block;
+      padding: 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      background: #fb5607;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .admin-links a:hover {
+      background: #ffb703;
+      color: black;
+      transform: translateY(-3px);
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .logout {
+      margin-top: 25px;
+    }
+
+    .logout a {
+      color: #ddd;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .logout a:hover {
+      text-decoration: underline;
+      color: #ffb703;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Logo -->
+    <div class="logo">
+      <img src="https://img.icons8.com/color/96/restaurant.png" alt="Uta_Maccha Logo">
+      <span class="logo-text">Uta_Maccha</span>
+    </div>
+
+    <h1>Welcome, Admin 👑</h1>
+
+    <div class="admin-links">
+      <a href="{% url 'open_add_restaurant' %}">➕ Add New Restaurant</a>
+      <a href="{% url 'open_show_restaurant' %}">📋 Show Restaurants</a>
+      <a href="{% url 'view_reports' %}">📊 View Reports</a>
+    </div>
+
+    <div class="logout">
+      <a href="#">🚪 Logout</a>
+    </div>
+  </div>
+</body>
+</html>

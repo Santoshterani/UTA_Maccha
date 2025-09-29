@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uta Maccha | Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url('https://source.unsplash.com/1600x900/?food,restaurant') no-repeat center center/cover;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0px 6px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            text-align: center;
+        }
+
+        /* Logo + tagline */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            margin-right: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #ffb703;
+        }
+
+        .tagline {
+            font-size: 0.95rem;
+            color: #ddd;
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: #fb5607;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            text-align: left;
+            color: #eee;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            background: #fb5607;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ffb703;
+            color: black;
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-link a {
+            color: #ffb703;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Logo + Brand -->
+        <div class="logo">
+            <img src="https://img.icons8.com/color/96/restaurant.png" alt="Uta_Maccha Logo">
+            <span class="logo-text">Uta_Maccha</span>
+        </div>
+        <p class="tagline">Delicious meals delivered fresh to your doorstep 🍴</p>
+
+        <!-- Signup Form -->
+        <h3>Create Your Account</h3>
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Mobile</label>
+            <input type="text" name="mobile" required>
+
+            <label>Address</label>
+            <textarea name="address" required></textarea>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="back-link">
+            Already have an account? <a href="open_signin">Sign In</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Reports | Uta Maccha</title>
+  <style>
+    body {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://source.unsplash.com/1600x900/?analytics,food') no-repeat center center/cover;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .report-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border-radius: 15px;
+      padding: 40px;
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.5);
+    }
+    h1 {
+      color: #ffb703;
+      margin-bottom: 25px;
+    }
+    .report-card {
+      background: rgba(255,255,255,0.15);
+      margin: 15px 0;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    th {
+      background: rgba(0,0,0,0.3);
+      color: #ffb703;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      background: #fb5607;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    a:hover {
+      background: #ffb703;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="report-container">
+    <h1>📊 Admin Reports</h1>
+
+    <div class="report-card">Total Restaurants: {{ total_restaurants }}</div>
+    <div class="report-card">Total Menu Items: {{ total_items }}</div>
+    <div class="report-card">Average Restaurant Rating: {{ avg_rating }}</div>
+
+    <h2 style="margin-top:25px; color:#fb5607;">🍽 Restaurants & Item Counts</h2>
+    <table>
+      <tr>
+        <th>Restaurant</th>
+        <th>Item Count</th>
+      </tr>
+      {% for r in restaurants_with_item_counts %}
+      <tr>
+        <td>{{ r.name }}</td>
+        <td>{{ r.item_count }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="2">No restaurants found</td></tr>
+      {% endfor %}
+    </table>
+
+    <a href="{% url 'signin' %}">⬅ Back to Dashboard</a>
+  </div>
+</body>
+</html>

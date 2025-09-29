@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Past Orders</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 20px; }
+        h1 { color: #333; }
+        .order-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        .order-header { margin-bottom: 10px; }
+        ul { list-style-type: none; padding: 0; }
+        li {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        li img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 12px;
+        }
+        .item-details { flex-grow: 1; }
+        .total { font-weight: bold; font-size: 1.1em; margin-top: 8px; }
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>{{ customer.username }}'s Past Orders</h1>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="order-box">
+                <div class="order-header">
+                    <h3>Order ID: {{ order.order_id }}</h3>
+                    <p><strong>Date:</strong> {{ order.created_at|date:"d M Y, h:i A" }}</p>
+                </div>
+
+                <ul>
+                    {% for item in order.items.all %}
+                        <li>
+                            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                            <div class="item-details">
+                                <strong>{{ item.name }}</strong><br>
+                                ₹{{ item.price }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <p class="total">Total: ₹{{ order.total_price }}</p>
+                <!-- ✅ Reorder Button -->
+                <a href="{% url 'reorder' order.id customer.username %}" class="btn">Reorder</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No past orders found.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurants List | Uta Maccha</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://source.unsplash.com/1600x900/?food,restaurant') no-repeat center center/cover;
+      color: #fff;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #ffb703;
+    }
+
+    .table-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border-radius: 15px;
+      padding: 20px;
+      overflow-x: auto;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.5);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    thead {
+      background: rgba(0,0,0,0.4);
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    th {
+      color: #ffb703;
+      font-size: 1.1rem;
+    }
+
+    td img {
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .actions a, .actions button {
+      display: inline-block;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .actions a {
+      background: #219ebc;
+      color: #fff;
+    }
+
+    .actions a:hover {
+      background: #8ecae6;
+      color: black;
+    }
+
+    .actions button {
+      background: #e63946;
+      color: white;
+    }
+
+    .actions button:hover {
+      background: #ffb703;
+      color: black;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .back-link a {
+      color: #ffb703;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍽 My Favorite Restaurants</h1>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Picture</th>
+          <th>Name</th>
+          <th>Cuisine</th>
+          <th>Rating</th>
+          <th>Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for restaurant in restaurants %}
+        <tr>
+          <td>
+            <img src="{{ restaurant.picture }}" alt="Picture of {{ restaurant.name }}" width="100">
+          </td>
+          <td>{{ restaurant.name }}</td>
+          <td>{{ restaurant.cuisine }}</td>
+          <td>{{ restaurant.rating }}/5</td>
+          <td>
+            <div class="actions">
+              <a href="{% url 'open_update_restaurant' restaurant.id %}">✏ Update Restaurant</a>
+              <a href="{% url 'delete_restaurant' restaurant.id %}">🗑 delete Restaurant</a>
+              <a href="{% url 'open_update_menu' restaurant.id %}">📖 Update Menu</a>
+              <a href="{% url 'manage_orders' restaurant.id %}">🛒 Manage Orders</a> <!-- NEW -->
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5">No restaurants available</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="back-link">
+    <a href="{% url 'open_add_restaurant' %}">➕ Add a New Restaurant</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Restaurant | Uta Maccha</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                  url('https://source.unsplash.com/1600x900/?restaurant,food') no-repeat center center/cover;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.5rem;
+      color: #ffb703;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+      color: #eee;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      background: #fb5607;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ffb703;
+      color: black;
+      transform: translateY(-3px);
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .back-link a {
+      color: #ffb703;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h3>➕ Add Restaurant</h3>
+    <form method="POST" action="{% url 'add_restaurant' %}">
+      {% csrf_token %}
+
+      <label for="name">Restaurant Name</label>
+      <input type="text" id="name" name="name" placeholder="e.g., Spice Garden" required>
+
+      <label for="picture">Picture URL</label>
+      <input type="url" id="picture" name="picture" placeholder="https://...">
+
+      <label for="cuisine">Cuisine</label>
+      <input type="text" id="cuisine" name="cuisine" placeholder="e.g., Italian, Indian" required>
+
+      <label for="rating">Rating (0–5)</label>
+      <input type="number" id="rating" name="rating" step="0.1" min="0" max="5" placeholder="e.g., 4.5" required>
+
+      <button type="submit">Add Restaurant</button>
+    </form>
+
+    <div class="back-link">
+      <a href="{% url 'open_show_restaurant' %}">⬅ Back to Restaurants</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Dark gradient */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+        .checkout-container {
+            width: 420px;
+            background: rgba(255, 255, 255, 0.08); /* Glassmorphism */
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .checkout-container h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #f5f5f5;
+        }
+        .checkout-container h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+            color: #ccc;
+        }
+        .checkout-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .checkout-container th, .checkout-container td {
+            padding: 12px;
+            text-align: left;
+        }
+        .checkout-container th {
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            font-weight: bold;
+            color: #f0f0f0;
+        }
+        .checkout-container td {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #e0e0e0;
+        }
+        .checkout-container h3 {
+            margin-top: 15px;
+            font-size: 1.4rem;
+            color: #ffcc70;
+        }
+        #rzp-button {
+            margin-top: 20px;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.4);
+        }
+        #rzp-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(255, 71, 87, 0.6);
+        }
+        .error {
+            color: #ffbaba;
+            background: rgba(216,0,12,0.8);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <h1>Checkout</h1>
+        <h2>Welcome, {{ username }}</h2>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>₹{{ item.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h3>Total: ₹{{ total_price }}</h3>
+            <button id="rzp-button">Pay with Razorpay</button>
+        {% endif %}
+    </div>
+
+    <script>
+        var options = {
+            "key": "{{ razorpay_key_id }}",
+            "amount": "{{ total_price|floatformat:2 }}00",
+            "currency": "INR",
+            "name": "Meal Buddy",
+            "description": "Order Payment",
+            "order_id": "{{ order_id }}",
+            "handler": function (response) {
+                alert("Payment Successful!");
+                window.location.href = "{% url 'orders' username %}";
+            },
+            "prefill": {
+                "name": "{{ username }}",
+                "email": "customer@example.com",
+                "contact": "9999999999"
+            },
+            "theme": {
+                "color": "#ff6b6b"
+            }
+        };
+        var rzp = new Razorpay(options);
+    
+        document.getElementById('rzp-button').onclick = function(e) {
+            rzp.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>

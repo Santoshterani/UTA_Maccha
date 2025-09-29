@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uta Maccha | Welcome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url('https://source.unsplash.com/1600x900/?food,restaurant') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Logo + tagline */
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            margin-right: 12px;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffb703;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #eee;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #ffb703;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        a.signin {
+            background: #fb5607;
+            color: white;
+        }
+
+        a.signup {
+            background: #ffb703;
+            color: black;
+        }
+
+        a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo + Tagline -->
+    <div class="logo">
+        <img src="https://img.icons8.com/color/96/restaurant.png" alt="Uta_Maccha Logo">
+        <span class="logo-text">Uta_Maccha</span>
+    </div>
+    <p class="tagline">Delicious meals delivered fresh to your doorstep 🍴</p>
+
+    <h1>Welcome to Uta Maccha</h1>
+    <div class="btn-container">
+        <a href="open_signin" class="signin">Sign In</a>
+        <a href="open_signup" class="signup">Sign Up</a>
+    </div>
+
+    <footer>
+        &copy; 2025 Uta Maccha. All rights reserved.
+    </footer>
+</body>
+</html>

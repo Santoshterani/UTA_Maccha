@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Orders | {{ restaurant.name }}</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/1600x900/?orders,food') no-repeat center center/cover;
+        color: #fff;
+        padding: 30px;
+    }
+    h1 { color: #ffb703; text-align: center; margin-bottom: 25px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.2); text-align: center; }
+    th { color: #ffb703; }
+    .back-link { margin-top: 20px; text-align: center; }
+    .back-link a { color: #ffb703; text-decoration: none; }
+    .back-link a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<h1>🛒 Orders for {{ restaurant.name }}</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Items</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Order Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.customer.username }}</td>
+            <td>
+                {% for item in order.items.all %}
+                    {{ item.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td>₹ {{ order.total_price }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.created_at }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No orders yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="back-link">
+    <a href="{% url 'open_show_restaurant' %}">⬅ Back to Restaurants</a>
+</div>
+</body>
+</html>

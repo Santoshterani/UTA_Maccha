@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ restaurant.name }} – Menu</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .top-links {
+            margin-bottom: 30px;
+        }
+
+        .top-links a {
+            text-decoration: none;
+            color: #fff;
+            background: rgba(0,123,255,0.85);
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .top-links a:hover {
+            background: rgba(0,123,255,1);
+            transform: scale(1.05);
+        }
+
+        .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        }
+
+        .card {
+            width: 200px;   /* ✅ smaller size */
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(14px);
+            border-radius: 16px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+        }
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .card h4 {
+            margin: 12px 0 6px;
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #e2e2e2;
+            padding: 0 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 14px;
+            background: rgba(0, 123, 255, 0.85);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background: rgba(0, 123, 255, 1);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>{{ restaurant.name }} – Menu</h3>
+        <div class="top-links">
+            <a href="{% url 'show_cart' username %}">🛒 View Cart</a>
+        </div>
+
+        <div class="card-container">
+            {% for item in itemList %}
+            <div class="card">
+                <img src="{{ item.picture }}" alt="{{ item.name }}">
+                <h4>{{ item.name }}</h4>
+                <p>{{ item.description }}</p>
+                <p><strong>₹ {{ item.price }}</strong></p>
+                <a href="{% url 'add_to_cart' item.id username %}" class="btn">Add to Cart</a>
+            </div>
+            {% empty %}
+            <p>No items available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
