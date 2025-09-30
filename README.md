@@ -47,14 +47,14 @@
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/<your-username>/Uta_Maccha.git
+   git clone https://github.com/Santoshterani/Uta_Maccha.git
    cd Uta_Maccha
 
 2. Create a virtual environment & activate:
 
 python -m venv venv
 source venv/bin/activate   # macOS/Linux
-venv\Scripts\activate      # Windows
+venv\\Scripts\\activate      # Windows
 
 
 3. Install dependencies:
